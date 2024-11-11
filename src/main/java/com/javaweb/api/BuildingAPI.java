@@ -23,28 +23,30 @@ public class BuildingAPI {
 	private BuildingService buildingService;
 
 	@GetMapping(value = "/api/building")
-	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params) {
-		List<BuildingDTO> result = buildingService.findAll(params);
+	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params,
+			@RequestParam(name = "typeCode", required = false) List<String> typeCodes) {
+
+		List<BuildingDTO> result = buildingService.findAll(params, typeCodes);
 
 		return result;
 	}
 
-	public void validate(BuildingDTO buildingDTO) {
-		if (buildingDTO.getName() == null || buildingDTO.getName().equals("")
-				|| buildingDTO.getNumberOfBasement() == null) {
-			throw new FieldRequiredException("name or numberofbasement is null");
-		}
-	}
+//	public void validate(BuildingDTO buildingDTO) {
+//		if (buildingDTO.getName() == null || buildingDTO.getName().equals("")
+//				|| buildingDTO.getNumberOfBasement() == null) {
+//			throw new FieldRequiredException("name or numberofbasement is null");
+//		}
+//	}
 
-	@PostMapping(value = "/api/building")
-	public BuildingDTO getBuilding2(@RequestBody BuildingDTO buildingDTO) {
-		validate(buildingDTO);
-
-		return buildingDTO;
-	}
-
-	@DeleteMapping(value = "/api/building/{id}")
-	public void deleteBuilding(@PathVariable Integer id) {
-		System.out.print("Da xoa toa nha co id = " + id);
-	}
+//	@PostMapping(value = "/api/building")
+//	public BuildingDTO getBuilding2(@RequestBody BuildingDTO buildingDTO) {
+//		validate(buildingDTO);
+//
+//		return buildingDTO;
+//	}
+//
+//	@DeleteMapping(value = "/api/building/{id}")
+//	public void deleteBuilding(@PathVariable Integer id) {
+//		System.out.print("Da xoa toa nha co id = " + id);
+//	}
 }
