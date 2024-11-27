@@ -30,23 +30,4 @@ public class BuildingAPI {
 
 		return result;
 	}
-
-//	public void validate(BuildingDTO buildingDTO) {
-//		if (buildingDTO.getName() == null || buildingDTO.getName().equals("")
-//				|| buildingDTO.getNumberOfBasement() == null) {
-//			throw new FieldRequiredException("name or numberofbasement is null");
-//		}
-//	}
-
-//	@PostMapping(value = "/api/building")
-//	public BuildingDTO getBuilding2(@RequestBody BuildingDTO buildingDTO) {
-//		validate(buildingDTO);
-//
-//		return buildingDTO;
-//	}
-//
-//	@DeleteMapping(value = "/api/building/{id}")
-//	public void deleteBuilding(@PathVariable Integer id) {
-//		System.out.print("Da xoa toa nha co id = " + id);
-//	}
 }
