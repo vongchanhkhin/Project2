@@ -5,7 +5,7 @@ public class BuildingDTO {
 	private String address;
 	private String managerName;
 	private String managerPhoneNumber;
-	private Integer floorArea;
+	private Long floorArea;
 	private String rentArea;
 	private String emptyArea;
 	private Long rentPrice;
@@ -60,11 +60,11 @@ public class BuildingDTO {
 		this.managerPhoneNumber = managerPhoneNumber;
 	}
 
-	public Integer getFloorArea() {
+	public Long getFloorArea() {
 		return floorArea;
 	}
 
-	public void setFloorArea(Integer floorArea) {
+	public void setFloorArea(Long floorArea) {
 		this.floorArea = floorArea;
 	}
 

@@ -1,74 +1,138 @@
 package com.javaweb.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "building")
 public class BuildingEntity {
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "street")
 	private String street;
+
+	@Column(name = "ward")
 	private String ward;
-	private Integer districId;
-	private String managerName;
-	private String managerPhoneNumber;
-	private Integer floorArea;
-	private String emptyArea;
-	private Integer rentPrice;
+
+	@Column(name = "numberofbasement")
+	private Long numberOfBasement;
+
+	@Column(name = "floorarea")
+	private Long floorArea;
+
+	@Column(name = "direction")
+	private String direction;
+
+	@Column(name = "level")
+	private String level;
+
+	@Column(name = "rentprice")
+	private Long rentPrice;
+
+	@Column(name = "servicefee")
 	private String serviceFee;
+
+	@Column(name = "brokeragefee")
 	private Long brokerageFee;
 
-	public Integer getId() {
+	@Column(name = "managername")
+	private String managerName;
+
+	@Column(name = "managerphonenumber")
+	private String managerPhoneNumber;
+
+	@ManyToOne
+	@JoinColumn(name = "districtid")
+	private DistrictEntity district;
+
+	@OneToMany(mappedBy = "building", fetch = FetchType.LAZY)
+	private List<RentAreaEntity> rentAreaEntities = new ArrayList<>();
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getDistricId() {
-		return districId;
+	public String getName() {
+		return name;
 	}
 
-	public void setDistricId(Integer districId) {
-		this.districId = districId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getManagerName() {
-		return managerName;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setManagerName(String managerName) {
-		this.managerName = managerName;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
-	public String getManagerPhoneNumber() {
-		return managerPhoneNumber;
+	public String getWard() {
+		return ward;
 	}
 
-	public void setManagerPhoneNumber(String managerPhoneNumber) {
-		this.managerPhoneNumber = managerPhoneNumber;
+	public void setWard(String ward) {
+		this.ward = ward;
 	}
 
-	public Integer getFloorArea() {
+	public Long getNumberOfBasement() {
+		return numberOfBasement;
+	}
+
+	public void setNumberOfBasement(Long numberOfBasement) {
+		this.numberOfBasement = numberOfBasement;
+	}
+
+	public Long getFloorArea() {
 		return floorArea;
 	}
 
-	public void setFloorArea(Integer floorArea) {
+	public void setFloorArea(Long floorArea) {
 		this.floorArea = floorArea;
 	}
 
-	public String getEmptyArea() {
-		return emptyArea;
+	public String getDirection() {
+		return direction;
 	}
 
-	public void setEmptyArea(String emptyArea) {
-		this.emptyArea = emptyArea;
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
 
-	
+	public String getLevel() {
+		return level;
+	}
 
-	public Integer getRentPrice() {
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public Long getRentPrice() {
 		return rentPrice;
 	}
 
-	public void setRentPrice(Integer rentPrice) {
+	public void setRentPrice(Long rentPrice) {
 		this.rentPrice = rentPrice;
 	}
 
@@ -88,28 +152,36 @@ public class BuildingEntity {
 		this.brokerageFee = brokerageFee;
 	}
 
-	public String getName() {
-		return name;
+	public String getManagerName() {
+		return managerName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
 	}
 
-	public String getWard() {
-		return ward;
+	public String getManagerPhoneNumber() {
+		return managerPhoneNumber;
 	}
 
-	public void setWard(String ward) {
-		this.ward = ward;
+	public void setManagerPhoneNumber(String managerPhoneNumber) {
+		this.managerPhoneNumber = managerPhoneNumber;
 	}
 
-	public String getStreet() {
-		return street;
+	public DistrictEntity getDistrict() {
+		return district;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setDistrict(DistrictEntity district) {
+		this.district = district;
+	}
+
+	public List<RentAreaEntity> getRentAreaEntities() {
+		return rentAreaEntities;
+	}
+
+	public void setRentAreaEntities(List<RentAreaEntity> rentAreaEntities) {
+		this.rentAreaEntities = rentAreaEntities;
 	}
 
 }

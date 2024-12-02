@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
@@ -21,9 +25,12 @@ import com.javaweb.utils.StringUtil;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
-		Integer staffId = buildingSearchBuilder.getStaffId();
+		Long staffId = buildingSearchBuilder.getStaffId();
 
 		if (staffId != null) {
 			sql.append("JOIN assignmentbuilding ON b.id = assignmentbuilding.buildingid ");
@@ -72,13 +79,13 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	}
 
 	public static void querySpecial(BuildingSearchBuilder buildingSearchBuilder, StringBuilder where) {
-		Integer staffId = buildingSearchBuilder.getStaffId();
+		Long staffId = buildingSearchBuilder.getStaffId();
 		if (staffId != null) {
 			where.append("AND assignmentbuilding.staffId = " + staffId + " ");
 		}
 
-		Integer rentAreaFrom = buildingSearchBuilder.getAreaFrom();
-		Integer rentAreaTo = buildingSearchBuilder.getAreaTo();
+		Long rentAreaFrom = buildingSearchBuilder.getAreaFrom();
+		Long rentAreaTo = buildingSearchBuilder.getAreaTo();
 		if (rentAreaFrom != null || rentAreaTo != null) {
 			where.append("AND EXISTS (SELECT * FROM rentarea WHERE rentarea.buildingid = b.id ");
 
@@ -93,8 +100,8 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 			where.append(") ");
 		}
 
-		Integer rentPriceFrom = buildingSearchBuilder.getRentPriceFrom();
-		Integer rentPriceTo = buildingSearchBuilder.getRentPriceTo();
+		Long rentPriceFrom = buildingSearchBuilder.getRentPriceFrom();
+		Long rentPriceTo = buildingSearchBuilder.getRentPriceTo();
 		if (rentPriceFrom != null || rentPriceTo != null) {
 			if (rentPriceFrom != null) {
 				where.append("AND b.rentprice >= " + rentPriceFrom + " ");
@@ -144,33 +151,9 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 
 		sql.append(where);
 
-		List<BuildingEntity> result = new ArrayList<>();
-
-		try (Connection conn = JDBCConnectionUtil.getConnection();
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql.toString());) {
-
-			while (rs.next()) {
-				BuildingEntity buildingEntity = new BuildingEntity();
-				buildingEntity.setId(rs.getInt("b.id"));
-				buildingEntity.setName(rs.getString("b.name"));
-				buildingEntity.setStreet(rs.getString("b.street"));
-				buildingEntity.setWard(rs.getString("b.ward"));
-				buildingEntity.setDistricId(rs.getInt("b.districtid"));
-				buildingEntity.setManagerName(rs.getString("b.managername"));
-				buildingEntity.setManagerPhoneNumber(rs.getString("b.managerphonenumber"));
-				buildingEntity.setFloorArea(rs.getInt("b.floorarea"));
-				buildingEntity.setRentPrice(rs.getInt("b.rentprice"));
-				buildingEntity.setServiceFee(rs.getString("b.servicefee"));
-				buildingEntity.setBrokerageFee(rs.getLong("b.brokeragefee"));
-
-				result.add(buildingEntity);
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-		return result;
+		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+		
+		return query.getResultList();
 	}
 
 }
