@@ -136,9 +136,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 
-		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.street, b.ward, b.districtid, "
-				+ "b.rentprice, b.floorarea, b.managername, b.managerphonenumber, b.servicefee, "
-				+ "b.brokeragefee FROM building b ");
+		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b ");
 
 		joinTable(buildingSearchBuilder, sql);
 
