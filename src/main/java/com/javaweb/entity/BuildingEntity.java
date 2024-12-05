@@ -58,7 +58,7 @@ public class BuildingEntity {
 	private String managerPhoneNumber;
 
 	@ManyToOne
-	@JoinColumn(name = "districtid")
+	@JoinColumn(name = "districtid") //EAGER
 	private DistrictEntity district;
 
 	@OneToMany(mappedBy = "building", fetch = FetchType.LAZY)

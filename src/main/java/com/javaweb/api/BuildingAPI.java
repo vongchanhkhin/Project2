@@ -22,6 +22,7 @@ import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.DistrictEntity;
 import com.javaweb.model.BuildingDTO;
 import com.javaweb.model.BuildingRequestDTO;
+import com.javaweb.repository.BuildingRepository;
 import com.javaweb.service.BuildingService;
 
 @RestController
@@ -33,12 +34,45 @@ public class BuildingAPI {
 
 	@Autowired
 	private BuildingService buildingService;
+	
+	@Autowired
+	private BuildingRepository buildingRepository;
 
 	@GetMapping(value = "/api/building")
 	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params,
 			@RequestParam(name = "typeCode", required = false) List<String> typeCodes) {
 
 		List<BuildingDTO> result = buildingService.findAll(params, typeCodes);
+
+		return result;
+	}
+	
+//	@GetMapping(value = "/api/building/{id}")
+//	public BuildingDTO getBuildingById(@PathVariable Long id) {
+//
+//		BuildingDTO result = new BuildingDTO();
+//		
+//		BuildingEntity building = buildingRepository.findById(id).get();
+//
+//		return result;
+//	}
+	
+	@GetMapping(value = "/api/building/{name}")
+	public BuildingDTO getBuildingByName(@PathVariable String name) {
+
+		BuildingDTO result = new BuildingDTO();
+		
+		List<BuildingEntity> building = buildingRepository.findByNameContaining(name);
+
+		return result;
+	}
+	
+	@GetMapping(value = "/api/building/{name}/{street}")
+	public BuildingDTO getBuildingByNameAndStreet(@PathVariable String name, @PathVariable String street) {
+
+		BuildingDTO result = new BuildingDTO();
+		
+		List<BuildingEntity> building = buildingRepository.findByNameContainingAndStreet(name, street);
 
 		return result;
 	}
@@ -62,8 +96,8 @@ public class BuildingAPI {
 	
 	@PutMapping(value = "/api/building")
 	public void updateBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
-		BuildingEntity buildingEntity = new BuildingEntity();
-		buildingEntity.setId(1L);
+		BuildingEntity buildingEntity = buildingRepository.findById(buildingRequestDTO.getId()).get();
+		
 		buildingEntity.setName(buildingRequestDTO.getName());
 		buildingEntity.setStreet(buildingRequestDTO.getStreet());
 		buildingEntity.setWard(buildingRequestDTO.getWard());
@@ -73,15 +107,13 @@ public class BuildingAPI {
 		districtEntity.setId(buildingRequestDTO.getDistrictId());
 		buildingEntity.setDistrict(districtEntity);
 		
-		entityManager.merge(buildingEntity);
+		buildingRepository.save(buildingEntity);
 		System.out.print("ok");
 		return;
 	}
 	
-	@DeleteMapping(value = "/api/building/{id}")
-	public void deleteBuilding(@PathVariable Long id) {
-		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, id);
-		entityManager.remove(buildingEntity);
-		System.out.print("ok");
+	@DeleteMapping(value = "/api/building/{ids}")
+	public void deleteBuilding(@PathVariable Long[] ids) {
+		buildingRepository.deleteByIdIn(ids);
 	}
 }
