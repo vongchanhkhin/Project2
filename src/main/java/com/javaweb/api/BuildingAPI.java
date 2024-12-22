@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.javaweb.custom.entity.BuildingJDBCEntity;
 import com.javaweb.customexception.FieldRequiredException;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.DistrictEntity;
@@ -38,13 +39,20 @@ public class BuildingAPI {
 	@Autowired
 	private BuildingRepository buildingRepository;
 
+//	@GetMapping(value = "/api/building")
+//	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params,
+//			@RequestParam(name = "typeCode", required = false) List<String> typeCodes) {
+//
+//		List<BuildingDTO> result = buildingService.findAll(params, typeCodes);
+//
+//		return result;
+//	}
+	
 	@GetMapping(value = "/api/building")
-	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params,
-			@RequestParam(name = "typeCode", required = false) List<String> typeCodes) {
+	public List<BuildingJDBCEntity> getAllBuildings() {
+		List<BuildingJDBCEntity> results = buildingService.findAll();
 
-		List<BuildingDTO> result = buildingService.findAll(params, typeCodes);
-
-		return result;
+		return results;
 	}
 	
 //	@GetMapping(value = "/api/building/{id}")
@@ -79,18 +87,20 @@ public class BuildingAPI {
 	
 	@PostMapping(value = "/api/building")
 	public void createBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
-		BuildingEntity buildingEntity = new BuildingEntity();
-		buildingEntity.setName(buildingRequestDTO.getName());
-		buildingEntity.setStreet(buildingRequestDTO.getStreet());
-		buildingEntity.setWard(buildingRequestDTO.getWard());
+//		BuildingEntity buildingEntity = new BuildingEntity();
+//		buildingEntity.setName(buildingRequestDTO.getName());
+//		buildingEntity.setStreet(buildingRequestDTO.getStreet());
+//		buildingEntity.setWard(buildingRequestDTO.getWard());
+//		
+//		DistrictEntity districtEntity = new DistrictEntity();
+//		
+//		districtEntity.setId(buildingRequestDTO.getDistrictId());
+//		buildingEntity.setDistrict(districtEntity);
+//		
+//		entityManager.persist(buildingEntity);
+//		System.out.print("ok");
 		
-		DistrictEntity districtEntity = new DistrictEntity();
-		
-		districtEntity.setId(buildingRequestDTO.getDistrictId());
-		buildingEntity.setDistrict(districtEntity);
-		
-		entityManager.persist(buildingEntity);
-		System.out.print("ok");
+		buildingService.save(buildingRequestDTO);
 		return;
 	}
 	

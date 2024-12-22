@@ -17,32 +17,35 @@ public class BuildingJDBCEntity {
 	@ColumnCustom(name = "ward")
 	private String ward;
 
-	@ColumnCustom(name = "numberofbasement")
-	private Long numberOfBasement;
+	@ColumnCustom(name = "districtid")
+	private Long districtId;
 
-	@ColumnCustom(name = "floorarea")
-	private Long floorArea;
+//	@ColumnCustom(name = "numberofbasement")
+//	private Long numberOfBasement;
+//
+//	@ColumnCustom(name = "floorarea")
+//	private Long floorArea;
 
-	@ColumnCustom(name = "direction")
-	private String direction;
-
-	@ColumnCustom(name = "level")
-	private String level;
+//	@ColumnCustom(name = "direction")
+//	private String direction;
+//
+//	@ColumnCustom(name = "level")
+//	private String level;
 
 	@ColumnCustom(name = "rentprice")
 	private Long rentPrice;
 
-	@ColumnCustom(name = "servicefee")
-	private String serviceFee;
-
-	@ColumnCustom(name = "brokeragefee")
-	private Long brokerageFee;
-
-	@ColumnCustom(name = "managername")
-	private String managerName;
-
-	@ColumnCustom(name = "managerphonenumber")
-	private String managerPhoneNumber;
+//	@ColumnCustom(name = "servicefee")
+//	private String serviceFee;
+//
+//	@ColumnCustom(name = "brokeragefee")
+//	private Long brokerageFee;
+//
+//	@ColumnCustom(name = "managername")
+//	private String managerName;
+//
+//	@ColumnCustom(name = "managerphonenumber")
+//	private String managerPhoneNumber;
 
 	public String getName() {
 		return name;
@@ -68,37 +71,45 @@ public class BuildingJDBCEntity {
 		this.ward = ward;
 	}
 
-	public Long getNumberOfBasement() {
-		return numberOfBasement;
+	public Long getDistrictId() {
+		return districtId;
 	}
 
-	public void setNumberOfBasement(Long numberOfBasement) {
-		this.numberOfBasement = numberOfBasement;
+	public void setDistrictId(Long districtId) {
+		this.districtId = districtId;
 	}
 
-	public Long getFloorArea() {
-		return floorArea;
-	}
+//	public Long getNumberOfBasement() {
+//		return numberOfBasement;
+//	}
+//
+//	public void setNumberOfBasement(Long numberOfBasement) {
+//		this.numberOfBasement = numberOfBasement;
+//	}
+//
+//	public Long getFloorArea() {
+//		return floorArea;
+//	}
+//
+//	public void setFloorArea(Long floorArea) {
+//		this.floorArea = floorArea;
+//	}
 
-	public void setFloorArea(Long floorArea) {
-		this.floorArea = floorArea;
-	}
-
-	public String getDirection() {
-		return direction;
-	}
-
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-
-	public String getLevel() {
-		return level;
-	}
-
-	public void setLevel(String level) {
-		this.level = level;
-	}
+//	public String getDirection() {
+//		return direction;
+//	}
+//
+//	public void setDirection(String direction) {
+//		this.direction = direction;
+//	}
+//
+//	public String getLevel() {
+//		return level;
+//	}
+//
+//	public void setLevel(String level) {
+//		this.level = level;
+//	}
 
 	public Long getRentPrice() {
 		return rentPrice;
@@ -108,36 +119,36 @@ public class BuildingJDBCEntity {
 		this.rentPrice = rentPrice;
 	}
 
-	public String getServiceFee() {
-		return serviceFee;
-	}
-
-	public void setServiceFee(String serviceFee) {
-		this.serviceFee = serviceFee;
-	}
-
-	public Long getBrokerageFee() {
-		return brokerageFee;
-	}
-
-	public void setBrokerageFee(Long brokerageFee) {
-		this.brokerageFee = brokerageFee;
-	}
-
-	public String getManagerName() {
-		return managerName;
-	}
-
-	public void setManagerName(String managerName) {
-		this.managerName = managerName;
-	}
-
-	public String getManagerPhoneNumber() {
-		return managerPhoneNumber;
-	}
-
-	public void setManagerPhoneNumber(String managerPhoneNumber) {
-		this.managerPhoneNumber = managerPhoneNumber;
-	}
+//	public String getServiceFee() {
+//		return serviceFee;
+//	}
+//
+//	public void setServiceFee(String serviceFee) {
+//		this.serviceFee = serviceFee;
+//	}
+//
+//	public Long getBrokerageFee() {
+//		return brokerageFee;
+//	}
+//
+//	public void setBrokerageFee(Long brokerageFee) {
+//		this.brokerageFee = brokerageFee;
+//	}
+//
+//	public String getManagerName() {
+//		return managerName;
+//	}
+//
+//	public void setManagerName(String managerName) {
+//		this.managerName = managerName;
+//	}
+//
+//	public String getManagerPhoneNumber() {
+//		return managerPhoneNumber;
+//	}
+//
+//	public void setManagerPhoneNumber(String managerPhoneNumber) {
+//		this.managerPhoneNumber = managerPhoneNumber;
+//	}
 
 }
